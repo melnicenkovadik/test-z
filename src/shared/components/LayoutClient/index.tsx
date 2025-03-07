@@ -12,9 +12,11 @@ export const Client = ({
   children,
   isMobile,
   isMetaMask,
+  locale = "en",
   messages,
 }: {
   children: any;
+  locale: string;
   isMobile: boolean;
   isMetaMask: boolean;
   messages: any;
@@ -22,7 +24,7 @@ export const Client = ({
   const isDev = process.env.NEXT_PUBLIC_NODE_ENV === "development";
   console.log("isMobile", isMobile);
   return (
-    <NextIntlClientProvider messages={messages}>
+    <NextIntlClientProvider messages={messages} locale={locale}>
       <ThemeProvider
         attribute="data-theme"
         defaultTheme="dark"

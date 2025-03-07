@@ -113,7 +113,9 @@ export const metadata = {
 
 export default async function RootLayout({ children }: { children: any }) {
   const locale = (await getLocale()) || "en";
+  console.log("locale", locale);
   const messages = (await getMessages()) || {};
+  console.log("messages", messages);
   const userAgent = (await headers())?.get("user-agent")?.toLowerCase() || "";
   const isMobile =
     /mobile|android|ios|iphone|IPhone|ipad|ipod|blackberry|windows phone/i.test(
@@ -123,7 +125,12 @@ export default async function RootLayout({ children }: { children: any }) {
   return (
     <html suppressHydrationWarning lang={locale} className={satoshi.className}>
       <body suppressHydrationWarning>
-        <Client messages={messages} isMetaMask={isMetaMask} isMobile={isMobile}>
+        <Client
+          messages={messages}
+          locale={locale}
+          isMetaMask={isMetaMask}
+          isMobile={isMobile}
+        >
           {children}
         </Client>
       </body>
