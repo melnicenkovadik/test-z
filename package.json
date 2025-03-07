@@ -132,9 +132,5 @@
     ">0.2%",
     "not dead",
     "not op_mini all"
-  ],
-  "engines": {
-    "node": ">= 16.17.0",
-    "npm": "please-use-yarn"
-  }
+  ]
 }
