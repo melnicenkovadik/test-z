@@ -10,4 +10,5 @@ export const cssOverrides = `
         gap: 8px;
         overflow: hidden;
         margin: 0;
+        color: black;
 }`;
