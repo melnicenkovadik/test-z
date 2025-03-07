@@ -1,0 +1,21 @@
+.close_all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: 26px;
+  padding: 0 12px;
+  border: 1px solid #303239;
+
+  font-family: Satoshi, serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #fff;
+
+  background: #40434e;
+  white-space: nowrap;
+  border-radius: 4px;
+  font-style: normal;
+  cursor: pointer;
+}

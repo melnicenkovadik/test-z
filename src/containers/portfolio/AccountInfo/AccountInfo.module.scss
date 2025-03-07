@@ -1,0 +1,39 @@
+@use "../../../shared/styles/media";
+
+.container {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  @include media.media-md {
+    display: grid;
+    padding: 8px 12px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0;
+  }
+}
+
+.col {
+  position: relative;
+
+  display: grid;
+  padding: 0 15px;
+
+  border-right: 1px solid #2d2d2d;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.col::after {
+  @include media.media-md {
+    display: block;
+  }
+}
+
+.balance {
+  color: white;
+}

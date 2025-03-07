@@ -1,0 +1,101 @@
+{
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "declaration-no-important": null,
+    "keyframe-declaration-no-important": null,
+    "order/order": [
+      "custom-properties",
+      "declarations",
+      {
+        "type": "at-rule",
+        "name": "media"
+      },
+      {
+        "type": "rule",
+        "selector": "^&"
+      }
+    ],
+
+    "order/properties-order": [
+      [
+        {
+          "groupName": "Positioning",
+          "emptyLineBefore": "always",
+          "properties": [
+            "position",
+            "z-index",
+            "top",
+            "right",
+            "bottom",
+            "left"
+          ]
+        },
+        {
+          "groupName": "Box Model",
+          "emptyLineBefore": "always",
+          "properties": [
+            "all",
+            "display",
+            "flex",
+            "flex-grow",
+            "flex-shrink",
+            "flex-basis",
+            "align-items",
+            "justify-content",
+            "width",
+            "min-width",
+            "max-width",
+            "height",
+            "min-height",
+            "max-height",
+            "margin",
+            "padding",
+            "border",
+            "border-width",
+            "border-style",
+            "border-color",
+            "box-sizing"
+          ]
+        },
+        {
+          "groupName": "Typography",
+          "emptyLineBefore": "always",
+          "properties": [
+            "font",
+            "font-family",
+            "font-size",
+            "font-weight",
+            "line-height",
+            "letter-spacing",
+            "text-align",
+            "text-transform",
+            "color"
+          ]
+        },
+        {
+          "groupName": "Visual",
+          "emptyLineBefore": "always",
+          "properties": [
+            "background",
+            "background-color",
+            "background-image",
+            "background-position",
+            "background-size",
+            "background-repeat",
+            "box-shadow",
+            "opacity",
+            "transform",
+            "transition"
+          ]
+        }
+      ],
+      { "unspecified": "bottom" }
+    ],
+    "comment-empty-line-before": [
+      "always",
+      {
+        "ignore": ["stylelint-commands", "after-comment"]
+      }
+    ]
+  }
+}

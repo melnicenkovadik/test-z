@@ -1,0 +1,73 @@
+.locale-switcher {
+  position: relative;
+}
+
+.select-trigger {
+  border: none;
+
+  transition: background-color 0.2s ease;
+  border-radius: 0.25rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.81);
+  }
+
+  &.pending {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+
+.select-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+
+  color: #ffffff;
+
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #1f2937;
+  }
+}
+
+.select-content {
+  min-width: 8rem;
+
+  background-color: var(--background-color);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border-radius: 0.25rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.select-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+
+  font-size: 1rem;
+  cursor: default;
+
+  &.highlighted {
+    background-color: rgba(177, 177, 177, 0.59);
+  }
+
+  .check-icon {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+  }
+
+  .item-label {
+    color: var(--text-color);
+  }
+}
+
+.select-arrow {
+  color: #ffffff;
+  fill: #ffffff;
+}

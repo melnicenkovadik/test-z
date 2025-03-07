@@ -1,0 +1,41 @@
+.root {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.expand {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  flex-direction: column;
+}
+
+.title {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--accent);
+
+  background-color: rgb(56, 49, 49);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.component {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+
+  background-color: #444444;
+
+  border-radius: 5px;
+}

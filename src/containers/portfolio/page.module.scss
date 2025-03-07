@@ -1,0 +1,29 @@
+@use "../../shared/styles/media";
+
+.portfolio_page {
+  display: flex;
+  width: -webkit-fill-available;
+  min-height: 86svh;
+  flex-direction: column;
+  gap: 16px;
+  //max-height: 100svh;
+  @include media.media-md {
+  }
+}
+
+.header {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 16px;
+
+  @include media.media-lg {
+    flex-direction: column;
+    gap: 16px;
+    @include media.media-md {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
+}

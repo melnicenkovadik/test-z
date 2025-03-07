@@ -1,0 +1,47 @@
+@use "../../../shared/styles/media";
+
+.container {
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  min-width: 491px;
+  gap: 8px;
+  @include media.media-lg {
+    min-width: 320px;
+    flex-direction: row;
+  }
+  @include media.media-md {
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+
+    min-width: -webkit-fill-available;
+    padding: 16px;
+    border: none;
+
+    background: var(--bg-main, #0f0f0f);
+    flex-direction: row;
+  }
+}
+
+.button {
+  font-family: Satoshi, serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+  color: var(--Brand-Tangerine-Accent-Main, #f08700);
+  font-style: normal;
+  @include media.media-md {
+    width: 100%;
+    padding: 12px 0px;
+
+    font-family: Satoshi, serif;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+    color: var(--Brand-Tangerine-Accent-Main, #f08700);
+    font-style: normal;
+  }
+}

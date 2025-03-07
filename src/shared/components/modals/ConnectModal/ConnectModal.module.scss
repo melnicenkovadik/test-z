@@ -1,0 +1,68 @@
+@use "@/shared/styles/media";
+
+.connect {
+  all: unset;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  flex-direction: column;
+
+  &__header {
+    display: flex;
+    width: 90%;
+    gap: 4px;
+    flex-direction: column;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 132%;
+    color: var(--base-white);
+    font-style: normal;
+  }
+}
+
+.text {
+  font-family: Satoshi, serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 132%;
+  color: var(--Base-White, #fff);
+  font-feature-settings:
+    "liga" off,
+    "clig" off;
+  font-style: normal;
+}
+
+.action_button {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 51px;
+  padding: 12px 40px;
+
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+  color: var(--base-Black, #0f0f0f);
+
+  background: #fff;
+  margin-top: 24px;
+  gap: 8px;
+  border-radius: 1000px;
+  font-style: normal;
+}
+
+.connect_modal_wrapper {
+  width: 430px;
+  @include media.media-sm {
+    width: 100%;
+  }
+}

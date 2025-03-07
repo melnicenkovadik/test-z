@@ -1,0 +1,13 @@
+{
+  "HEADER": {
+    "margin_ratio_label": "Здоровье",
+    "en": "Английский",
+    "ru": "Русский",
+    "locale_switch_label": "Язык",
+    "label": "Язык",
+    "portfolio": "Портфель",
+    "trade": "Торговля",
+    "docs": "Документация",
+    "connect_button": "Подключить"
+  }
+}

@@ -1,0 +1,88 @@
+@use "@/shared/styles/media";
+
+.margin_ratio_container {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 5px;
+
+  @include media.media-sm {
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .text_margin_ratio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: Satoshi, serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+
+    color: var(--Base-300, #989ba6);
+    font-style: normal;
+  }
+
+  .margin_value_container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .margin_value {
+    font-family: Satoshi, serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    color: var(--Base-White, #fff);
+    font-style: normal;
+  }
+
+  .steps_container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.25rem;
+  }
+
+  .step {
+    width: 0.125rem;
+    height: 0.25rem;
+    border-radius: 0.125rem;
+  }
+
+  .empty_step {
+    background-color: #303239;
+  }
+}
+
+.filled_step {
+  background-color: white;
+}
+
+.healthy {
+  background-color: #4caf50;
+}
+
+.warning {
+  background-color: #f5a623;
+}
+
+.danger {
+  background-color: #f44336;
+}
+
+.text_margin_ratio_health {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info_icon {
+  //margin-top: 5px;
+}

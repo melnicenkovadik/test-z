@@ -1,0 +1,87 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "settings": {
+    "alias": {
+      "map": [["@", "./src"]],
+      "extensions": [".ts", ".tsx", ".js", ".jsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
+      }
+    }
+  },
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "prettier"
+  ],
+  "ignorePatterns": [
+    "node_modules/",
+    "public/",
+    "out/",
+    "!.eslintrc.js",
+    "!.commitlintrc.js",
+    "commitlint.config.js"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "prettier", "import"],
+  "rules": {
+    "scss/no-important": "off",
+    "@typescript-eslint/no-require-imports": "off",
+    "import/no-named-as-default": "off",
+    "import/no-named-as-default-member": "off",
+    "@typescript-eslint/no-empty-object": "off",
+    "@typescript-eslint/no-empty-object-type": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-comment": [
+      "error",
+      {
+        "ts-expect-error": true,
+        "ts-ignore": false,
+        "ts-nocheck": false,
+        "ts-check": true
+      }
+    ],
+    "semi": ["error", "always"],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "prettier/prettier": ["error"],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          ["builtin", "external"],
+          ["internal", "parent", "sibling", "index"]
+        ],
+        "pathGroups": [
+          {
+            "pattern": "@/**",
+            "group": "internal",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
+  }
+}

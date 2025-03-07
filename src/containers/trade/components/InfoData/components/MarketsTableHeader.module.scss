@@ -1,0 +1,90 @@
+@use "../../../../../shared/styles/media";
+
+.table_header {
+  position: relative;
+}
+
+.table_header_item {
+  position: relative;
+
+  min-width: 100px;
+  padding: 12px 7px;
+
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: left;
+  color: var(--Base-300, #989ba6);
+  font-style: normal;
+}
+
+.sort_icon {
+  position: absolute;
+  top: 30%;
+  margin-left: 8px;
+}
+
+.sort_icon_top {
+  position: absolute;
+  top: 20%;
+  margin-left: 5px;
+}
+
+.ticker {
+  width: 168px;
+  min-width: 168px;
+  max-width: 168px;
+  @include media.media-md {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+  }
+}
+
+.price {
+  width: 109px;
+  min-width: 109px;
+  max-width: 109px;
+}
+
+.volume {
+  width: 141px;
+  min-width: 141px;
+  max-width: 141px;
+  white-space: nowrap !important;
+}
+
+.change {
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
+}
+
+.liquidity {
+  width: 151px;
+  min-width: 151px;
+  max-width: 151px;
+}
+
+.open_interest {
+  width: 151px;
+  min-width: 151px;
+  max-width: 151px;
+}
+
+.funding {
+  width: 119px;
+  min-width: 119px;
+  max-width: 119px;
+
+  text-align: center;
+}
+.skew {
+  width: 80px;
+  min-width: 80px;
+  max-width: 80px;
+
+  text-align: center;
+}
+.selected {
+}

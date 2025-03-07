@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e  # Останавливаем выполнение при любой ошибке
+
+if [ -z "${CHECKS_RUN}" ]; then
+  echo "Pre-commit checks will start as it is a manual commit"
+
+  # Выполнение lint-staged
+  echo "Running lint-staged..."
+  npx lint-staged --concurrent=false
+
+  # Линтинг всего кода
+  echo "Running lint for all code..."
+  npm run lint:all
+
+  # Проверка имени ветки
+  echo "Validating branch name..."
+  npx validate-branch-name
+
+  echo "All pre-commit checks completed successfully!"
+else
+  echo "Skipping Pre-commit checks as they already executed"
+fi

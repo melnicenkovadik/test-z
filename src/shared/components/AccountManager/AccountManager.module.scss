@@ -1,0 +1,164 @@
+@use "@/shared/styles/media";
+
+.account_manager {
+}
+
+.account_manager__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: Satoshi, serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+
+  color: var(--base-300);
+  gap: 8px;
+
+  cursor: pointer;
+  font-style: normal;
+}
+
+.select__icon__arrow {
+  fill: red;
+}
+
+.account_manager__list {
+  display: flex;
+  align-items: flex-start;
+  width: 408px;
+  max-height: 325px;
+  padding: 16px;
+  border: 1px solid var(--base-800);
+
+  background: #17181a;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  border-radius: 16px;
+  @include media.media-md {
+    width: 100%;
+  }
+}
+
+.account_manager__list__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border: 1px solid transparent;
+
+  background: #1a1b1e;
+  gap: 16px;
+  align-self: stretch;
+  flex-direction: row;
+  border-radius: 8px;
+  cursor: pointer;
+
+  .acc_left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .acc_icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .acc_name {
+      font-family: Satoshi, serif;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 18px;
+      color: var(--base-300);
+      font-style: normal;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      &__overview {
+        font-family: Satoshi, serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 18px;
+        color: var(--base-white);
+        font-style: normal;
+      }
+    }
+  }
+
+  .acc_right {
+    display: flex;
+    gap: 18px;
+
+    &__col {
+      display: flex;
+      align-items: stretch;
+      width: 30px;
+      gap: 8px;
+      flex-direction: column;
+    }
+
+    &__balance {
+      width: 40px;
+
+      .acc_value__balance {
+        font-size: 14px;
+        color: var(--base-white);
+      }
+    }
+
+    &__pos {
+      width: 15px;
+
+      .acc_value__pos {
+        font-size: 14px;
+        color: var(--base-300);
+      }
+    }
+
+    &__pnl {
+      width: 35px;
+
+      .acc_value__pnl {
+        font-size: 14px;
+        color: var(--base-white);
+      }
+    }
+
+    .acc_value_label {
+      font-family: Satoshi, serif;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 16px;
+      color: var(--base-300);
+      font-style: normal;
+    }
+  }
+
+  &:hover {
+    border: 1px solid var(--base-700);
+
+    background: #28292f;
+  }
+}
+
+.account_manager__list__item__active {
+  border: 1px solid var(--base-700);
+
+  background: #28292f;
+}
+
+.account_manager__list_wrapper {
+  padding: 0;
+  border: none;
+
+  background: transparent;
+  margin-top: 10px;
+
+  @include media.media-md {
+    width: 100%;
+  }
+}

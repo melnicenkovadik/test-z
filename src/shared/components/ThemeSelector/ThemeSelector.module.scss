@@ -1,0 +1,47 @@
+.theme_selector {
+  display: flex;
+  gap: 2px;
+  flex-direction: column;
+
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    padding: 1rem;
+    cursor: pointer;
+  }
+}
+
+.selected {
+  color: var(--text-color);
+  border-radius: 5px;
+}
+
+.not_selected {
+  color: var(--text-color);
+
+  background-color: var(--primary-foreground);
+  border-radius: 5px;
+}
+
+.mode_title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.mode_selector {
+}
+
+.mode_options {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-top: 1rem;
+}
+
+.mode_option {
+  width: 48%;
+  height: 50px;
+}

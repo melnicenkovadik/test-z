@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Disallow: /
+
+# Host
+Host: https://dev.app.zeuz.trade
+
+# Sitemaps
+Sitemap: https://dev.app.zeuz.trade/sitemap.xml

@@ -1,0 +1,28 @@
+.theme-dark:root {
+  --tv-color-platform-background: #17181a;
+  --tv-color-pane-background: #17181a;
+  --tv-color-pane-background-secondary: #17181a;
+}
+
+html.theme-dark
+  .button-KTgbfaP5.isTransparent-KTgbfaP5.isActive-KTgbfaP5
+  .icon-KTgbfaP5,
+html.theme-dark
+  .button-KTgbfaP5.isTransparent-KTgbfaP5.isActive-KTgbfaP5:hover
+  .icon-KTgbfaP5,
+html.theme-dark .button-GwQQdU8S.isInteractive-GwQQdU8S.isActive-GwQQdU8S {
+  color: #f08700;
+}
+
+html.theme-dark .dialog-aRAWUDhF,
+html.theme-dark .item-gjrLBBL3,
+html.theme-dark .wrap-gjrLBBL3.small-gjrLBBL3,
+html.theme-dark .footer-dwINHZFL {
+  background-color: #17181a;
+}
+
+.priceScaleModeButtons__button_activated-PEm49B2T {
+  background-color: rgba(240, 135, 0, 0.08);
+  border-color: rgba(240, 135, 0, 0.33);
+  color: #f08700;
+}

@@ -1,0 +1,136 @@
+.slider-container {
+  position: relative;
+
+  width: 100%;
+  max-width: -webkit-fill-available;
+  margin: 0 auto;
+}
+
+.slider {
+  z-index: 1;
+
+  width: 100%;
+  height: 8px;
+  margin: 0 0;
+
+  background: #303239;
+  transition: background 0.3s;
+  -webkit-appearance: none;
+  border-radius: 100px;
+  cursor: pointer;
+  outline: none;
+
+  &::-webkit-slider-thumb {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #dbdde2;
+
+    background: #ffffff;
+    -webkit-appearance: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #dbdde2;
+
+    background: #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &::-ms-thumb {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #dbdde2;
+
+    background: #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+
+    &::-webkit-slider-thumb {
+      cursor: not-allowed;
+    }
+
+    &::-moz-range-thumb {
+      cursor: not-allowed;
+    }
+
+    &::-ms-thumb {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.slider-marks {
+  position: absolute;
+  top: 11px;
+  left: 0;
+
+  width: 100%;
+
+  .slider-mark {
+    position: absolute;
+    left: 0;
+
+    width: 2.4px;
+    min-width: 2.4px;
+    max-width: 2.4px;
+    height: 2.4px;
+    min-height: 2.4px;
+    max-height: 2.4px;
+
+    background: white;
+    border-radius: 50%;
+
+    &:first-of-type {
+      margin-left: 5px;
+    }
+
+    &:last-of-type {
+      margin-left: -5px;
+    }
+  }
+}
+
+.slider_labels {
+  position: relative;
+
+  font-family: Satoshi, serif;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 132%;
+
+  margin-top: 4px;
+  font-style: normal;
+
+  > span {
+    position: absolute;
+
+    text-align: center;
+    white-space: nowrap;
+
+    &:first-of-type {
+      margin-left: 8px;
+    }
+
+    &:last-of-type {
+      width: 200px;
+      margin-left: -10px;
+      white-space: nowrap;
+    }
+
+    > span {
+      color: white;
+      > span {
+        color: #989ba6;
+      }
+    }
+  }
+}

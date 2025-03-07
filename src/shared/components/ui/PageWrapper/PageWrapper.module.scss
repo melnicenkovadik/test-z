@@ -1,0 +1,23 @@
+@use "@/shared/styles/media";
+
+.page_wrapper {
+  display: flex;
+  flex: 1;
+  max-width: 90%;
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: 0 20px;
+  //height: 100svh;
+  //max-height: 100svh;
+  flex-direction: column;
+  //margin-right: 30px;
+  //margin-left: 30px;
+
+  @include media.media-sm {
+    max-width: 100%;
+    padding: 0 0px;
+
+    //margin-right: 0;
+    //margin-left: 0;
+  }
+}

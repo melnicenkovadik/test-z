@@ -1,0 +1,32 @@
+.trade_container {
+  position: sticky;
+  top: 0;
+
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.trade_container__mobile {
+  margin-top: 25px;
+}
+
+.acc_classname {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 8px;
+}
+
+.acc_select_class_name {
+  width: 100%;
+  padding: 0;
+}
+
+.acc_select_content_class_name {
+  width: 100%;
+}
+
+.acc_select_label_class_name {
+}
+.trade_container__header {
+  padding: 0 16px;
+}

@@ -1,0 +1,27 @@
+.no_data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--base-300);
+
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  font-style: normal;
+  border-radius: 4px;
+}
+
+.no_data_text {
+  font-family: Satoshi, serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 132%;
+  color: var(--Light-2, #e0e2e5);
+  font-style: normal;
+}

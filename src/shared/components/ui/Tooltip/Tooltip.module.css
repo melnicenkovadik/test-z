@@ -1,0 +1,12 @@
+.tooltip {
+  z-index: 9999;
+  padding: 0.5rem;
+  background-color: var(--background-color);
+  color: #fff;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+}
+.tooltip_trigger {
+  all: unset;
+  position: relative;
+}

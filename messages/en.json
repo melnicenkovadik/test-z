@@ -1,0 +1,12 @@
+{
+  "HEADER": {
+    "margin_ratio_label": "Health",
+    "portfolio": "Portfolio",
+    "trade": "Trade",
+    "docs": "Docs",
+    "en": "English",
+    "ru": "Russian",
+    "locale_switch_label": "Language",
+    "connect_button": "Connect"
+  }
+}

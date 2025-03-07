@@ -1,0 +1,130 @@
+@use "@/shared/styles/media";
+
+.connected_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 6px 20px;
+  border: 1px solid rgba(240, 135, 0, 0.33);
+
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  color: var(--accent-orange);
+
+  background: rgba(240, 135, 0, 0.08);
+  cursor: pointer;
+  gap: 8px;
+
+  border-radius: 1000px;
+  font-style: normal;
+}
+
+.connected_content {
+  z-index: 10000;
+
+  display: flex;
+  align-items: flex-start;
+  width: 356px;
+  padding: 24px;
+  border: 1px solid #28292f;
+
+  background: #1a1919;
+  flex-direction: column;
+  border-radius: 16px;
+  @include media.media-md {
+    width: 300px;
+  }
+
+  h3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 132%;
+    color: var(--base-white);
+    margin-bottom: 16px;
+    font-feature-settings:
+      "liga" off,
+      "clig" off;
+    font-style: normal;
+
+    > img,
+    svg {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+  }
+
+  p {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 132%;
+    color: var(--base-400);
+    font-feature-settings:
+      "liga" off,
+      "clig" off;
+    font-style: normal;
+    margin-bottom: 16px;
+  }
+}
+
+.connected_address {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 38px;
+  padding: 0 8px;
+  border: 1px solid var(--Base-700, #303239);
+
+  background: #28292f;
+  margin-bottom: 24px;
+  gap: 16px;
+  border-radius: 8px;
+
+  > p {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
+
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    font-style: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.connected_buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+
+  > button {
+    width: 100%;
+    min-width: 49%;
+
+    font-size: 18px;
+  }
+}
+
+.disconnect_button {
+  width: 100%;
+}
+
+.copy_icon {
+  cursor: pointer;
+}

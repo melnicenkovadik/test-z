@@ -1,0 +1,69 @@
+.direction_picker {
+  display: grid;
+  align-items: center;
+  width: 100%;
+  height: 42px;
+
+  background: var(--base-800);
+  margin-bottom: 8px;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0;
+  border-radius: 8px;
+  align-self: stretch;
+  overflow: hidden;
+
+  &_item {
+    display: flex;
+    flex: 1 0 0;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 22px;
+    gap: 8px;
+    cursor: pointer;
+    font-style: normal;
+
+    &.active {
+      color: var(--base-white);
+    }
+
+    &__short {
+      color: var(--red);
+    }
+
+    &__long {
+      color: var(--green);
+    }
+
+    &__short.active {
+      background: var(--red);
+    }
+
+    &__long.active {
+      background: var(--green);
+    }
+  }
+}
+
+.mini {
+  background-color: transparent;
+  grid-gap: 15px;
+  grid-template-columns: 48% 48%;
+}
+
+.mini .direction_picker_item {
+  background: var(--base-800);
+  border-radius: 8px;
+}
+.mini .direction_picker_item.active {
+  background: var(--base-700);
+}
+.mini .direction_picker_item__short.active {
+  background: var(--red);
+}
+.mini .direction_picker_item__long.active {
+  background: var(--green);
+}

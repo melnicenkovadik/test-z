@@ -1,0 +1,92 @@
+:root {
+  --brokoli-ui-black100: #474747;
+  --brokoli-ui-black200: #3c3c3c;
+  --brokoli-ui-black300: #363636;
+  --brokoli-ui-black400: #323232;
+  --brokoli-ui-black500: #2b2b2b;
+  --brokoli-ui-black600: #252525;
+  --brokoli-ui-black700: #222222;
+  --brokoli-ui-black800: #161616;
+  --brokoli-ui-black900: #0f0f0f;
+  --brokoli-ui-black950: #070707;
+  --brokoli-ui-error100: #ffe3e8;
+  --brokoli-ui-error200: #ffcad7;
+  --brokoli-ui-error300: #ff9fb6;
+  --brokoli-ui-error400: #ff6991;
+  --brokoli-ui-error500: #fe356e;
+  --brokoli-ui-error600: #dd1155;
+  --brokoli-ui-error700: #c8084d;
+  --brokoli-ui-error800: #8e0d44;
+  --brokoli-ui-error900: #500120;
+  --brokoli-ui-error950: #370016;
+  --brokoli-ui-primary100: #e2ffef;
+  --brokoli-ui-primary200: #b2ffd4;
+  --brokoli-ui-primary300: #4bff99;
+  --brokoli-ui-primary400: #15f877;
+  --brokoli-ui-primary500: #04f06a;
+  --brokoli-ui-primary600: #00cf5a;
+  --brokoli-ui-primary700: #008338;
+  --brokoli-ui-primary800: #005223;
+  --brokoli-ui-primary900: #003015;
+  --brokoli-ui-primary950: #001f0d;
+  --brokoli-ui-secondary100: #f9f2ff;
+  --brokoli-ui-secondary200: #f0ddff;
+  --brokoli-ui-secondary300: #d5b4ff;
+  --brokoli-ui-secondary400: #c08fff;
+  --brokoli-ui-secondary500: #b67dff;
+  --brokoli-ui-secondary600: #7449ab;
+  --brokoli-ui-secondary700: #532f81;
+  --brokoli-ui-secondary800: #322345;
+  --brokoli-ui-secondary900: #21182c;
+  --brokoli-ui-secondary950: #18121f;
+  --brokoli-ui-warning100: #ffebc6;
+  --brokoli-ui-warning200: #ffd588;
+  --brokoli-ui-warning300: #ffc15e;
+  --brokoli-ui-warning400: #ff9f20;
+  --brokoli-ui-warning500: #f97b07;
+  --brokoli-ui-warning600: #dd5602;
+  --brokoli-ui-warning700: #b73806;
+  --brokoli-ui-warning800: #942a0c;
+  --brokoli-ui-warning900: #7a250d;
+  --brokoli-ui-warning950: #561604;
+  --brokoli-ui-white100: #f9f9fa;
+  --brokoli-ui-white200: #eeeef1;
+  --brokoli-ui-white300: #e7e9eb;
+  --brokoli-ui-white400: #e7e7e8;
+  --brokoli-ui-white500: #e1e2e3;
+  --brokoli-ui-white600: #d6d9db;
+  --brokoli-ui-white700: #cccecf;
+  --brokoli-ui-white800: #b6b8ba;
+  --brokoli-ui-white900: #a3a5a6;
+  --brokoli-ui-white950: #8d8d8d;
+
+  --color-layer-1: red;
+  --color-layer-2: var(--brokoli-ui-black900);
+  --color-layer-3: var(--brokoli-ui-black800);
+  --color-layer-4: var(--brokoli-ui-black800);
+  --color-layer-6: var(--brokoli-ui-primary500);
+
+  --color-border: var(--brokoli-ui-black700);
+}
+
+/* Theme: Dark */
+:root.theme-dark {
+  /* Constants */
+
+  --theme-dark-hue-purple: 240;
+  --theme-dark-color-green: var(--brokoli-ui-primary500);
+  --theme-dark-color-yellow: var(--brokoli-ui-warning500);
+  --theme-dark-color-red: var(--brokoli-ui-error500);
+
+  --color-text-0: var(--brokoli-ui-black100);
+  --color-text-1: var(--brokoli-ui-white950);
+  --color-text-2: var(--brokoli-ui-white100);
+
+  --color-accent: var(--color-text-2);
+  --color-positive: var(--theme-dark-color-green);
+  --color-negative: var(--theme-dark-color-red);
+  --color-success: var(--theme-dark-color-green);
+  --color-warning: var(--theme-dark-color-yellow);
+  --color-error: var(--theme-dark-color-red);
+  --color-favorite: var(--theme-dark-color-yellow);
+}

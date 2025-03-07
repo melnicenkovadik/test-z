@@ -1,0 +1,265 @@
+@use "../../../../../shared/styles/media";
+
+.table_body {
+  width: fit-content;
+}
+
+.table_body_item {
+  padding: 12px 8px;
+  border: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  outline: none;
+}
+
+.green {
+  color: var(--green, #09fa05);
+}
+
+.red {
+  color: var(--red, #f70000);
+}
+
+.ticker {
+  width: 165px;
+  min-width: 165px;
+  max-width: 165px;
+
+  @include media.media-md {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+  }
+
+  &_value {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 18px;
+
+    color: var(--base-white);
+    flex-direction: row;
+    font-style: normal;
+    gap: 3px;
+
+    &_icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    &__x {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 26px;
+      padding: 2px 6px;
+
+      color: var(--accent-orange);
+
+      background: rgba(240, 135, 0, 0.09);
+      font-style: normal;
+      gap: 10px;
+      border-radius: 4px;
+    }
+  }
+}
+
+.price {
+  width: 106px;
+  min-width: 106px;
+  max-width: 106px;
+
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+
+  &_value {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 18px;
+    flex-direction: row;
+    gap: 8px;
+
+    > img,
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.volume {
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
+
+  &_value {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: center;
+    flex-direction: row;
+    font-style: normal;
+
+    &_suffix {
+      color: #989ba6;
+      margin-left: 2px;
+    }
+  }
+}
+
+.change {
+  width: 97px;
+  min-width: 97px;
+  max-width: 97px;
+
+  &_value {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 18px;
+    flex-direction: row;
+    gap: 8px;
+
+    > img,
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.liquidity {
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
+  overflow: hidden;
+  &_value {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    gap: 8px;
+    white-space: nowrap;
+    flex-direction: row;
+
+    &__slash {
+      color: #989ba6;
+    }
+  }
+}
+
+.open_interest {
+  width: 149px;
+  min-width: 149px;
+  max-width: 149px;
+  overflow: hidden;
+
+  &_value {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    gap: 8px;
+    white-space: nowrap;
+    flex-direction: row;
+
+    &__slash {
+      color: #989ba6;
+    }
+  }
+}
+
+.funding {
+  width: 117px;
+  min-width: 117px;
+  max-width: 117px;
+
+  &_value {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 18px;
+    flex-direction: row;
+    gap: 8px;
+
+    > img,
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.skew {
+  width: 79px;
+  min-width: 79px;
+  max-width: 79px;
+
+  &_value {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    white-space: nowrap;
+    flex-direction: row;
+
+    &__slash {
+      color: #989ba6;
+    }
+  }
+}
+
+//open_interest_value
+
+//liquidity_value
+
+.table_body_row {
+  > div {
+    border: 1px solid var(--Card_input_border, #28292f);
+
+    background: var(--bg-card, #17181a);
+    border-radius: 16px;
+
+    cursor: pointer;
+
+    &:first-of-type {
+      margin-top: 8px;
+    }
+
+    &:hover {
+      background: var(--bg-card-hover, #1d1e20);
+    }
+  }
+
+  &:first-child {
+    > div {
+      margin-top: 0;
+    }
+  }
+}
+
+.selected {
+}

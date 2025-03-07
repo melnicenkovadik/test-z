@@ -1,0 +1,11 @@
+diff --git a/node_modules/@reyaxyz/api-sdk/src/clients/types.ts b/node_modules/@reyaxyz/api-sdk/src/clients/types.ts
+index 6ed2576..3acdf1d 100644
+--- a/node_modules/@reyaxyz/api-sdk/src/clients/types.ts
++++ b/node_modules/@reyaxyz/api-sdk/src/clients/types.ts
+@@ -1,5 +1,5 @@
+ // reexporting what we want to share with integrators
+-export {
++export type {
+   Candle,
+   CandlesResolution,
+   MarketEntity,

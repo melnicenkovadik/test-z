@@ -1,0 +1,90 @@
+@use "../../shared/styles/media";
+
+.container {
+  display: grid;
+  flex: 1;
+  min-height: 86svh;
+
+  color: #fff;
+  grid-template-rows: auto 1fr auto;
+  gap: 8px;
+  @include media.media-md {
+    height: calc(100vh - 270px);
+  }
+}
+
+.info {
+  padding: 16px;
+  border-radius: 8px;
+
+  @include media.media-md {
+    padding: 8px 16px !important;
+    border: none !important;
+
+    background: var(--Base-900, #17181a) !important;
+    border-radius: 0 !important;
+    border-top: 1px solid var(--Card_input_border, #28292f) !important;
+    border-bottom: 1px solid var(--Card_input_border, #28292f) !important;
+  }
+}
+
+.main {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: 389px 1fr;
+  gap: 8px;
+  grid-template-areas: "left_panel chart";
+
+  @include media.media-lg {
+    grid-template-columns: 1fr;
+    grid-template-areas: "left_panel" "chart";
+  }
+  @include media.media-md {
+    grid-template-columns: 1fr;
+    grid-template-areas: "chart";
+  }
+}
+
+.info_container {
+  position: relative;
+
+  display: flex;
+  grid-area: chart;
+  gap: 8px;
+  flex-direction: column;
+  overflow: hidden;
+
+  @include media.media-lg {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+.left_panel {
+  position: sticky;
+  top: 0;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 16px;
+  flex-direction: column;
+  border-radius: 8px;
+  grid-area: left_panel;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.chart {
+  height: -webkit-fill-available;
+  padding: 2px;
+  border-radius: 8px;
+  @include media.media-lg {
+    padding: 0 !important;
+
+    background-color: transparent;
+    border-radius: 0 !important;
+  }
+}
