@@ -1,0 +1,560 @@
+ПІДГОТОВКА ДО СПІВБЕСІДИ: SENIOR FRONTEND DEVELOPER @ 28SOFTWARE
+
+АНАЛІЗ ВИМОГ ДО ВАКАНСІЇ
+
+Основні технології:
+1. React + TypeScript - Event-driven архітектура, оптимізація продуктивності
+2. WebSockets - Real-time дані (30-60+ оновлень/сек), батчинг, логіка перепідключення
+3. Фінансові графіки - TradingView/Lightweight Charts, OHLCV дані, індикатори
+4. Продуктивність - Запобігання re-render, віртуалізація, оптимізація
+5. Управління станом - Обробка високочастотних оновлень
+6. Тестування - Тестування real-time UI
+
+
+КЛЮЧОВІ ТЕМИ ДЛЯ ПІДГОТОВКИ
+
+1. РЕАЛІЗАЦІЯ WEBSOCKET ТА ОБРОБКА REAL-TIME ДАНИХ
+
+Питання, які можуть задати:
+- "Як ви обробляєте перепідключення WebSocket з експоненційним backoff?"
+- "Як ви групуєте оновлення WebSocket, щоб запобігти тремтінню UI?"
+- "Як ви обробляєте відстеження послідовності та порядок повідомлень?"
+- "Який ваш підхід до optimistic UI оновлень з reconciliation?"
+
+Приклади з вашого проекту:
+
+Архітектура WebSocket клієнта:
+З файлу: src/providers/websocket.ts
+export class WebsocketClient {
+  private reconnectInterval: number = 30_000;
+  private reconnectTimer?: NodeJS.Timeout;
+  
+  // Логіка перепідключення з перевіркою інтервалу
+  private _setReconnectInterval = () => {
+    this.reconnectTimer = setInterval(() => {
+      const readyState = this.socket?.getReadyState();
+      if (!this.socket || readyState === WebSocket.CLOSED) {
+        this._clearSocket();
+        this._initializeSocket();
+      }
+    }, this.reconnectInterval);
+  };
+  
+  // Паттерн handler для кількох підписників
+  private handleCandleMessage({ id, contents }: CandleMessage) {
+    const subscriptionItem = candlesSubscriptionsByChannelId.get(id);
+    if (subscriptionItem) {
+      const bar = mapCandle(updatedCandle);
+      subscriptionItem.lastBar = bar;
+      // Трансляція всім підписникам
+      Object.values(subscriptionItem.handlers).forEach(
+        (handler: HandlerType) => {
+          handler.callback(bar);
+        }
+      );
+    }
+  }
+}
+
+Ключові моменти для згадування:
+- Singleton паттерн для WebSocket з'єднання
+- Управління підписками з кешем на основі Map
+- Паттерн handler для кількох підписників на канал
+- Автоматичне перепідключення з перевіркою інтервалу
+- Callback для скидання з'єднання для інвалідації кешу
+
+Що можна покращити (бути чесним):
+- Можна реалізувати експоненційний backoff для перепідключення
+- Можна додати номери послідовності для порядку повідомлень
+- Можна реалізувати батчинг/throttling для високочастотних оновлень
+- Можна додати heartbeat/ping-pong для перевірки здоров'я з'єднання
+
+
+2. ОПТИМІЗАЦІЯ ПРОДУКТИВНОСТІ REACT
+
+Питання, які можуть задати:
+- "Як ви запобігаєте непотрібним re-render з 60+ оновленнями на секунду?"
+- "Коли використовувати useMemo vs useCallback vs React.memo?"
+- "Як ви оптимізуєте компоненти, які отримують часті оновлення props?"
+- "Яка ваша стратегія віртуалізації великих списків?"
+
+Приклади з вашого проекту:
+
+Управління станом з Zustand:
+З файлу: src/shared/store/useMarketStore.ts
+const useMarketStore = create<MarketState>()(
+  persist(
+    (set, get) => ({
+      setMarkets: (markets) => {
+        const { selectedMarket } = get();
+        // Селективні оновлення - оновлюємо тільки якщо змінилося
+        if (!selectedMarket) {
+          const activeMarket = markets.find((m) => m.isActive) ?? markets[0];
+          set({ selectedMarket: activeMarket, markets });
+        } else {
+          const newSelectedMarket = markets.find(
+            (m) => m.id === selectedMarket.id
+          );
+          set({ markets, selectedMarket: newSelectedMarket });
+        }
+      },
+    }),
+    { name: "market-store" }
+  )
+);
+
+Ключові моменти для згадування:
+- Zustand для легкого управління станом (краще ніж Redux для високої частоти)
+- Селективні оновлення - оновлюємо тільки змінені дані
+- Middleware для збереження стану
+- Можна використовувати селектори для запобігання непотрібним re-render
+
+Стратегії оптимізації для обговорення:
+
+1. useMemo/useCallback:
+Приклад паттерну, який можна реалізувати:
+const memoizedHandler = useCallback((market) => {
+  handleSelectMarket(market);
+}, []);
+
+const sortedRows = useMemo(() => {
+  return table?.getRowModel()?.rows?.sort((a, b) => {
+    // логіка сортування
+  });
+}, [table, selectedMarket]);
+
+2. React.memo для дорогих компонентів:
+const MarketsTableBody = React.memo(({ table, handleSelectMarket }) => {
+  // Реалізація компонента
+}, (prevProps, nextProps) => {
+  // Кастомне порівняння
+  return prevProps.table === nextProps.table && 
+         prevProps.handleSelectMarket === nextProps.handleSelectMarket;
+});
+
+3. Віртуалізація (react-window):
+У вашому проекті є залежність react-window
+import { VariableSizeList } from 'react-window';
+
+// Для великих списків ринків:
+<VariableSizeList
+  height={600}
+  itemCount={markets.length}
+  itemSize={getItemSize}
+  overscanCount={5}
+>
+  {Row}
+</VariableSizeList>
+
+
+3. БІБЛІОТЕКИ ФІНАНСОВИХ ГРАФІКІВ
+
+Питання, які можуть задати:
+- "Як ви інтегруєте TradingView Charting Library?"
+- "Як ви обробляєте real-time оновлення OHLCV даних?"
+- "Як ви реалізуєте технічні індикатори (RSI, MACD)?"
+- "Як ви оптимізуєте рендеринг графіків з великими наборами даних?"
+
+Приклади з вашого проекту:
+
+Інтеграція TradingView:
+З файлу: src/containers/trade/components/Chart/components/PriceChart/TradingViewChart/index.tsx
+const TradingViewChart = () => {
+  const tvWidgetRef = useRef<any>(null);
+  
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.TradingView?.widget) {
+      setIsScriptLoaded(true);
+      return;
+    }
+    // Динамічне завантаження скрипта
+    const script = document.createElement("script");
+    script.src = "/static/charting_library/charting_library.js";
+    script.async = true;
+    document.head.appendChild(script);
+  }, []);
+  
+  // Конфігурація віджета
+  const widgetOptions: ChartingLibraryWidgetOptions = {
+    datafeed: getReyaDatafeed(getCandlesForDatafeed),
+    interval: savedTvChartResolution,
+    library_path: "/static/charting_library/",
+    // ... конфігурація
+  };
+};
+
+Real-Time стрімінг даних:
+З файлу: streaming.ts
+export const subscribeOnStream = ({
+  symbolInfo,
+  resolution,
+  onRealtimeCallback,
+  subscribeUID,
+  lastBar,
+}) => {
+  const channelId = generateChannelId({
+    resolution: RESOLUTION_MAP[resolution],
+    ticker: symbolInfo.name,
+  });
+  
+  // Кешування handler підписок
+  const subscriptionItem = candlesSubscriptionsByChannelId.get(channelId);
+  if (subscriptionItem) {
+    subscriptionItem.handlers[subscribeUID] = handler;
+    return;
+  }
+  
+  // Створення нової підписки
+  candlesSubscriptionsByChannelId.set(channelId, {
+    handlers: { [subscribeUID]: handler },
+    lastBar,
+    resolution,
+  });
+  
+  websocketClient.handleCandlesSubscription({ channelId, subscribe: true });
+};
+
+Маппінг даних та оновлення:
+З файлу: mappers.ts
+export const mapCandle = ({
+  startedAt, open, close, high, low, baseTokenVolume
+}: Candle): TradingViewBar => ({
+  close: parseFloat(close),
+  high: parseFloat(high),
+  low: parseFloat(low),
+  open: parseFloat(open),
+  time: new Date(startedAt).getTime(),
+  volume: Math.ceil(Number(baseTokenVolume)),
+});
+
+// Паттерн optimistic update
+export const updateBar = (currentBar: Bar, close: number) => {
+  const high = close > currentBar.high ? close : currentBar.high;
+  const low = close < currentBar.low ? close : currentBar.low;
+  return { ...currentBar, close, high, low };
+};
+
+Ключові моменти для згадування:
+- Динамічне завантаження скрипта для TradingView бібліотеки
+- Паттерн datafeed для історичних + real-time даних
+- Управління підписками на символ/роздільність
+- Optimistic оновлення для змін ціни
+- Управління кешем для останніх барів
+
+
+4. EVENT-DRIVEN АРХІТЕКТУРА
+
+Питання, які можуть задати:
+- "Як ви структуруєте event-driven React додаток?"
+- "Як ви обробляєте батчинг та debouncing подій?"
+- "Як ви запобігаєте витокам пам'яті в event handlers?"
+
+Приклади з вашого проекту:
+
+Паттерн Debouncing:
+З файлу: src/shared/hooks/useDebounce.ts
+export const useDebounce = <T>(value: T, delay: number): T => {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+  
+  useEffect(() => {
+    const handler = setTimeout(() => setDebouncedValue(value), delay);
+    return () => clearTimeout(handler);
+  }, [value, delay]);
+  
+  return debouncedValue;
+};
+
+Паттерн Handler:
+// Кілька handlers на канал
+private marketsUpdateHandlers: MarketUpdateHandlerPayloadType[] = [];
+
+addMarketsUpdateHandler = (handler: MarketUpdateHandlerPayloadType) => {
+  this.marketsUpdateHandlers.push(handler);
+};
+
+private handleAllMarketsMessage({ contents: markets }: MarketsUpdateMessage) {
+  this.marketsUpdateHandlers.forEach((handler) => handler(markets));
+}
+
+
+5. ТЕСТУВАННЯ REAL-TIME UI
+
+Питання, які можуть задати:
+- "Як ви тестуєте WebSocket з'єднання?"
+- "Як ви тестуєте компоненти з високочастотними оновленнями?"
+- "Як ви мокуєте real-time дані в тестах?"
+
+Налаштування вашого проекту:
+- Jest + React Testing Library
+- jest.setup.js для конфігурації тестів
+
+Стратегії для обговорення:
+
+1. Mock WebSocket:
+Приклад налаштування тесту
+const mockWebSocket = {
+  send: jest.fn(),
+  close: jest.fn(),
+  addEventListener: jest.fn(),
+};
+
+global.WebSocket = jest.fn(() => mockWebSocket) as any;
+
+2. Тест з fake timers:
+jest.useFakeTimers();
+
+// Симуляція швидких оновлень
+for (let i = 0; i < 100; i++) {
+  act(() => {
+    updateMarketData(mockData);
+    jest.advanceTimersByTime(16); // ~60fps
+  });
+}
+
+3. Інтеграційні тести для оновлень графіка:
+test('chart updates with WebSocket data', async () => {
+  const { container } = render(<TradingViewChart />);
+  
+  // Симуляція WebSocket повідомлення
+  act(() => {
+    websocketClient.handleCandleMessage({
+      id: 'BTC/USD-1m',
+      contents: { candles: [mockCandle] }
+    });
+  });
+  
+  await waitFor(() => {
+    expect(container.querySelector('.chart')).toBeInTheDocument();
+  });
+});
+
+
+ТИПОВІ ПИТАННЯ ТА ВІДПОВІДІ НА СПІВБЕСІДІ
+
+П: "Розкажіть про випадок, коли ви оптимізували React додаток для високочастотних оновлень."
+
+Структура відповіді:
+1. Контекст: "У моєму поточному проекті у нас є торгова платформа з 30-60 оновленнями на секунду з WebSocket"
+2. Проблема: "Спочатку кожне оновлення викликало повний re-render компонентів, що спричиняло лаги UI"
+3. Рішення: 
+   - Використав Zustand з селективними оновленнями
+   - Реалізував паттерн підписки для оновлення тільки зачеплених компонентів
+   - Додав мемоізацію для дорогих обчислень
+   - Використав requestAnimationFrame для батчованих оновлень
+4. Результат: "Зменшив час рендерингу з 50мс до <5мс на оновлення"
+
+П: "Як ви обробляєте перепідключення WebSocket з порядком повідомлень?"
+
+Відповідь:
+- Реалізувати експоненційний backoff (1с, 2с, 4с, 8с, макс 30с)
+- Використовувати номери послідовності для порядку повідомлень
+- Підтримувати чергу повідомлень під час роз'єднання
+- Відтворити пропущені повідомлення після перепідключення
+- Використовувати optimistic оновлення з reconciliation
+
+П: "Який ваш підхід до запобігання витоків пам'яті в React?"
+
+Відповідь:
+- Завжди очищати підписки в return useEffect
+- Видаляти event listeners
+- Очищати таймери/інтервали
+- Відписуватися від WebSocket handlers
+- Використовувати refs для значень, які не повинні викликати re-render
+
+П: "Як ви оптимізуєте рендеринг графіків з 10,000+ точками даних?"
+
+Відповідь:
+- Використовувати агрегацію/семплінг даних для історичних даних
+- Рендерити тільки видимий діапазон
+- Використовувати Web Workers для обчислень
+- Реалізувати віртуальний скрол для даних графіка
+- Використовувати canvas замість SVG для кращої продуктивності
+- Debounce/throttle оновлення
+
+
+ПРИКЛАДИ КОДУ ДЛЯ ПІДГОТОВКИ
+
+1. Паттерн батчингу WebSocket
+class BatchedWebSocketClient {
+  private updateQueue: MarketUpdate[] = [];
+  private batchInterval = 16; // ~60fps
+  private rafId: number | null = null;
+  
+  handleUpdate(update: MarketUpdate) {
+    this.updateQueue.push(update);
+    
+    if (!this.rafId) {
+      this.rafId = requestAnimationFrame(() => {
+        this.flushUpdates();
+        this.rafId = null;
+      });
+    }
+  }
+  
+  private flushUpdates() {
+    if (this.updateQueue.length === 0) return;
+    
+    // Об'єднання оновлень за символом
+    const merged = this.updateQueue.reduce((acc, update) => {
+      acc[update.symbol] = update;
+      return acc;
+    }, {} as Record<string, MarketUpdate>);
+    
+    // Одне оновлення стану
+    this.onBatchUpdate(Object.values(merged));
+    this.updateQueue = [];
+  }
+}
+
+2. Оптимізований компонент з useMemo
+const MarketTable = ({ markets, selectedMarket }) => {
+  // Мемоізація дорогого обчислення
+  const sortedMarkets = useMemo(() => {
+    return markets.sort((a, b) => {
+      if (a.ticker === selectedMarket?.ticker) return -1;
+      if (b.ticker === selectedMarket?.ticker) return 1;
+      return 0;
+    });
+  }, [markets, selectedMarket?.ticker]);
+  
+  // Мемоізація callback
+  const handleSelect = useCallback((market) => {
+    setSelectedMarket(market);
+  }, []);
+  
+  return (
+    <Table>
+      {sortedMarkets.map(market => (
+        <MarketRow 
+          key={market.id} 
+          market={market}
+          onSelect={handleSelect}
+        />
+      ))}
+    </Table>
+  );
+};
+
+3. WebSocket з експоненційним backoff
+class WebSocketClient {
+  private reconnectAttempts = 0;
+  private maxReconnectAttempts = 10;
+  private baseDelay = 1000;
+  
+  private reconnect() {
+    if (this.reconnectAttempts >= this.maxReconnectAttempts) {
+      console.error('Max reconnection attempts reached');
+      return;
+    }
+    
+    const delay = Math.min(
+      this.baseDelay * Math.pow(2, this.reconnectAttempts),
+      30000 // Макс 30 секунд
+    );
+    
+    setTimeout(() => {
+      this.reconnectAttempts++;
+      this.connect();
+    }, delay);
+  }
+  
+  private onOpen() {
+    this.reconnectAttempts = 0; // Скидання при успішному з'єднанні
+  }
+}
+
+
+ПІДГОТОВКА ДО PERFORMANCE PROFILING
+
+Точки Chrome DevTools Performance Trace:
+
+1. Аналіз частоти оновлень:
+   - Записати performance trace
+   - Визначити частоту оновлень (має бути ~16мс для 60fps)
+   - Знайти вузькі місця (довгі задачі >50мс)
+
+2. Вузькі місця для пошуку:
+   - Layout thrashing (примусові reflows)
+   - Надмірні re-render
+   - Витоки пам'яті (зростаючий heap)
+   - Довге виконання JavaScript
+
+3. Виправлення для демонстрації:
+   - До: Кожне WebSocket повідомлення викликає re-render
+   - Після: Батчовані оновлення з requestAnimationFrame
+   - До: Повний re-render таблиці при оновленні одного рядка
+   - Після: Селективні оновлення з React.memo
+
+Приклад пояснення Performance Trace:
+
+"Ось performance trace з нашої торгової платформи:
+
+1. Частота оновлень: Ми отримуємо ~60 WebSocket повідомлень на секунду
+2. Початкова проблема: Кожне повідомлення викликало повний re-render дерева компонентів (~45мс)
+3. Виявлене вузьке місце: 
+   - Компонент MarketTable рендерить всі рядки
+   - Оновлення store Zustand викликають непотрібні підписки
+4. Застосовані виправлення:
+   - Реалізовано батчинг: Оновлення збираються протягом 16мс вікна, потім один render
+   - Додано React.memo до компонентів MarketRow
+   - Використано селектори Zustand для запобігання непотрібним підпискам
+5. Результат: Зменшено час рендерингу до ~3мс на батч, підтримуючи 60fps"
+
+
+ДОДАТКОВІ ТЕМИ ДЛЯ ПОВТОРЕННЯ
+
+1. Фічі React 18:
+- Concurrent Rendering: useTransition, useDeferredValue
+- Automatic Batching: Кілька оновлень стану батчуються автоматично
+- Suspense: Для завантаження даних та code splitting
+
+2. Паттерни TypeScript:
+- Generic типи для перевикористовуваних компонентів
+- Utility типи (Pick, Omit, Partial)
+- Type guards для безпеки під час виконання
+
+3. Фінансові знання:
+- OHLCV: Open, High, Low, Close, Volume
+- Технічні індикатори: RSI, MACD, Moving Averages
+- Ринкові дані: Order books, trades, tick data
+- Торгові концепції: Leverage, margin, positions, orders
+
+4. Архітектурні паттерни:
+- Pub/Sub: Для event-driven оновлень
+- Observer Pattern: Для WebSocket підписок
+- Singleton: Для WebSocket клієнта
+- Factory Pattern: Для створення екземплярів графіків
+
+
+ЧЕКЛИСТ ПЕРЕД СПІВБЕСІДОЮ
+
+- Повторити реалізацію WebSocket у вашому проекті
+- Підготувати 2-3 конкретні приклади оптимізацій продуктивності
+- Попрактикувати пояснення інтеграції TradingView
+- Повторити техніки оптимізації продуктивності React
+- Підготувати питання про їхній технологічний стек
+- Записати 2-4 хвилинну демонстрацію performance trace (якщо можливо)
+- Повторити фінансові торгові концепції
+- Підготувати приклади тестування real-time UI
+
+
+ПИТАННЯ, ЯКІ ТРЕБА ЗАДАТИ ЇМ
+
+1. "Яка поточна частота оновлень, яку ви відчуваєте? Чи є вузькі місця продуктивності?"
+2. "Яку бібліотеку графіків ви зараз використовуєте або плануєте використовувати?"
+3. "Як ви обробляєте масштабування WebSocket з кількома користувачами?"
+4. "Яка ваша стратегія тестування real-time фіч?"
+5. "Яка структура команди? Як співпрацюють frontend/backend/ML команди?"
+6. "Які найбільші технічні виклики, з якими ви стикаєтеся?"
+
+
+ФІНАЛЬНІ ПОРАДИ
+
+1. Бути чесним: Якщо ви щось не реалізували, скажіть про це, але поясніть, як би ви підійшли до цього
+2. Показати навчання: Згадайте, що б ви покращили у вашій поточній реалізації
+3. Задавати питання: Покажіть інтерес до їхніх технічних викликів
+4. Приклади коду: Майте готові конкретні приклади з вашого проекту
+5. Фокус на продуктивності: Підкресліть ваш досвід з високочастотними оновленнями
+6. Комунікація: Продемонструйте чітку технічну комунікацію
+
+Успіхів!
